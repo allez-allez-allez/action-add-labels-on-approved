@@ -1,16 +1,27 @@
-import * as core from '@actions/core';
-import {wait} from './wait'
+import * as core from "@actions/core";
+import * as github from "@actions/github";
 
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    console.log(`Waiting ${ms} milliseconds ...`)
+    const token = core.getInput("github-token", { required: true });
+    const approvals = core.getInput("approvals", { required: true });
 
-    core.debug((new Date()).toTimeString())
-    await wait(parseInt(ms));
-    core.debug((new Date()).toTimeString())
+    const { pull_request_review: prr } = github.context.payload;
+    core.info(JSON.stringify(github.context.payload));
+    if (!prr) {
+      throw new Error("Event payload missing `pull_request_review`");
+    }
 
-    core.setOutput('time', new Date().toTimeString());
+    const client = new github.GitHub(token);
+
+    const { data: reviews } = await client.pulls.listReviews({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      pull_number: prr.pull_request.number
+    });
+    core.info(JSON.stringify(reviews));
+    // if (prr.action === "submitted" && prr.state === "approved") {
+    // }
   } catch (error) {
     core.setFailed(error.message);
   }

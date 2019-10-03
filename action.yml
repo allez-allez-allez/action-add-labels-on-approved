@@ -1,10 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Triet Le'
+description: 'Automatically add specified label on approved pr'
+author: 'Plus3 IT Systems'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  approvals:              # change this
+    description: 'number of approvals must be met'
+    default: '1'
 runs:
   using: 'node12'
-  main: 'lib/main.js'
+  main: 'dist/index.js'

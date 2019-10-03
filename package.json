@@ -1,33 +1,34 @@
 {
-  "name": "typescript-action",
+  "name": "action-add-labels-on-approved",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "description": "Automatically add specified label on approved pr",
+  "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "ncc build src/main.ts",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/allez-allez-allez/action-add-labels-on-approved.git"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "label"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "Plus3 IT Systems",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0"
+    "@actions/core": "^1.1.3",
+    "@actions/github": "^1.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "jest": "^24.8.0",
-    "jest-circus": "^24.7.1",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1"
+    "@types/node": "^12.7.9",
+    "@zeit/ncc": "^0.20.5",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
   }
 }
